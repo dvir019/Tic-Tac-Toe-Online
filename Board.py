@@ -1,6 +1,9 @@
+from Button import Button
+
+
 class Board(object):
     def __init__(self, size=3):
-        self.__board = [['' for i in xrange(size)] for j in xrange(size)]  # type: list[list[str]]
+        self.__board = [[Button(j, i) for i in xrange(size)] for j in xrange(size)]  # type: list[list[str]]
         self.__size = size  # type: int
 
     def __getitem__(self, pos_tuple):
@@ -112,30 +115,38 @@ class Board(object):
 
 import Tkinter as tk
 
-
 # class App(tk.Frame, object):
 #     def __init__(self, master=None):
 #         super(App, self).__init__(master)
 #         self.pack()
+x = False
 
 
 def startgame(btn, path, stop=False):
+    global x
     if path == '':
         go.config(image='', height=10, width=20)
     else:
         print stop
-        if not stop:
+        if not stop and not x:
+            print 'ddd'
             ph = tk.PhotoImage(file=path)
             go.config(image=ph)
             go.image = ph
-        else:
+        elif not x:
             go['command'] = 0
             go['relief'] = 'sunken'
             print 'aaaa'
+            x = True
+            go.bind("<Enter>", '')
+            go.bind("<Leave>", '')
+
+
 # flat, groove, raised, ridge, solid, or sunken
 
 if __name__ == '__main__':
     mw = tk.Tk()
+
 
     # If you have a large number of widgets, like it looks like you will for your
     # game you can specify the attributes for all widgets simply like this.
@@ -156,27 +167,29 @@ if __name__ == '__main__':
     go = tk.Button(master=back, command=lambda: startgame(go, 'X.gif', True))
     go.config(image=ph)
     go.image = ph
+    # x=False
     go.bind("<Enter>", lambda btn: startgame(btn, 'X.gif'))
     go.bind("<Leave>", lambda btn: startgame(btn, 'white.gif'))
-    go.grid(row=0, column=0)
+    go.grid(row=1, column=0)
     close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
-    close.grid(row=0, column=1)
-    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
-    close.grid(row=0, column=2)
-    go2 = tk.Button(master=back, text='Start Game', command=startgame, height=10, width=20)
-    go2.grid(row=1, column=0)
-    close2 = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
-    close2.grid(row=1, column=1)
+    close.grid(row=1, column=1)
     close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
     close.grid(row=1, column=2)
-
-    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
-    close.grid(row=2, column=0)
-    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
-    close.grid(row=2, column=1)
+    go2 = tk.Button(master=back, text='Start Game', command=startgame, height=10, width=20)
+    go2.grid(row=2, column=0)
+    close2 = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
+    close2.grid(row=2, column=1)
     close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
     close.grid(row=2, column=2)
+
+    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
+    close.grid(row=3, column=0)
+    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
+    close.grid(row=3, column=1)
+    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
+    close.grid(row=3, column=2)
     print dir(close)
-    # info = tk.Label(master=__frame, text='Made by me!', bg='red', fg='black')
+    info = tk.Label(master=back, text='Made by me!', bg='red', fg='black', width=30)
+    info.grid(row=0,column=0, columnspan=3)
 
     mw.mainloop()

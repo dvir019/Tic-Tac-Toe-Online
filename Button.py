@@ -11,16 +11,25 @@ class Button(object):
         self.used = ''  # type: str
         img = tk.PhotoImage(file=Graphics.paths['white'])
 
-        self.btn = tk.Button(master=Graphics().frame, image=img)
-        self.btn.config(image=img)
-        self.btn.image = img
+        self.btn = tk.Button(master=Graphics().frame)
+        self.__initialize_button()
+
+    def __initialize_button(self):
+        self.__change_image('white')
+        self.btn.bind("<Enter>", lambda: self.__change_image())  # change '' to real sign
+        self.btn.bind("<Leave>", lambda: self.__change_image('white'))
 
     def __change_image(self, sign):
         img = tk.PhotoImage(file=Graphics.paths[sign])
         self.btn.config(image=img)
 
     def click(self):
-        self.__change_image('')  ##### change according to the real sign !!!!!!!!
+        self.__change_image('')  ##### change according to the real sign !!!!!!!! (not only the user's sign)
         self.used=''
         self.btn['command'] = 0  # Disable clicking
         self.btn['relief'] = 'sunken'  # Fix the design
+        self.btn.bind("<Enter>", '')
+        self.btn.bind("<Leave>", '')
+
+    def grid(self):
+        self.btn.grid(row=self.line, column=self.col)
