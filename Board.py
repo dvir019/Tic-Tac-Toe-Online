@@ -140,13 +140,28 @@ def startgame(btn, path, stop=False):
             x = True
             go.bind("<Enter>", '')
             go.bind("<Leave>", '')
+            # import tkMessageBox
+            # tkMessageBox.showinfo("Title", "a Tk MessageBox", master=mw)
+            another = tk.Frame(master=mw, background='green', height=10, width=10)
+            # __frame.pack_propagate(0)  # Don't allow the widgets inside to determine the frame's width / height
+            another.pack(fill=tk.BOTH, expand=1)  # Expand the frame to fill the root window
+            another.grid(row=0, column=0, sticky=tk.NSEW)
+            x=tk.Button(master=another, text='aaa', command=mw.destroy)
+            x.grid(row=0, column=0)
+            another.tkraise()
+            # back.grid_remove()
+            # back.pack_forget()
+            # another.pack_forget()
+            # another.tkraise()
+            # back.tkraise()
+
+
 
 
 # flat, groove, raised, ridge, solid, or sunken
 
 if __name__ == '__main__':
     mw = tk.Tk()
-
 
     # If you have a large number of widgets, like it looks like you will for your
     # game you can specify the attributes for all widgets simply like this.
@@ -155,12 +170,26 @@ if __name__ == '__main__':
 
     mw.title('The game')
     # You can set the geometry attribute to change the root windows size
-    mw.geometry("500x500")  # You want the size of the app to be 500x500
+    # mw.geometry("500x500")  # You want the size of the app to be 500x500
+
+    window_height = 500
+    window_width = 455
+
+    screen_width = mw.winfo_screenwidth()
+    screen_height = mw.winfo_screenheight()
+
+    x_cordinate = int((screen_width / 2) - (window_width / 2))
+    y_cordinate = int((screen_height / 2) - (window_height / 2))
+
+    mw.geometry("{}x{}+{}+{}".format(window_width, window_height, x_cordinate, y_cordinate))
+
     mw.resizable(0, 0)  # Don't allow resizing in the x or y direction
 
     back = tk.Frame(master=mw)
     # __frame.pack_propagate(0)  # Don't allow the widgets inside to determine the frame's width / height
+    back.grid(row=0, column=0)
     back.pack(fill=tk.BOTH, expand=1)  # Expand the frame to fill the root window
+    back.grid(row=0, column=0, sticky=tk.NSEW)
 
     # Changed variables so you don't have these set to None from .pack()
     ph = tk.PhotoImage(file="white.gif")
@@ -190,6 +219,10 @@ if __name__ == '__main__':
     close.grid(row=3, column=2)
     print dir(close)
     info = tk.Label(master=back, text='Made by me!', bg='red', fg='black', width=30)
-    info.grid(row=0,column=0, columnspan=3)
+    info.grid(row=0, column=0, columnspan=3)
 
     mw.mainloop()
+
+
+
+

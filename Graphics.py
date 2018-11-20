@@ -27,6 +27,7 @@ class Graphics(object):
     def run(self):
         self.__master_window.mainloop()
 
+
 # If you have a large number of widgets, like it looks like you will for your
 # game you can specify the attributes for all widgets simply like this.
 # mw.option_add("*Button.Background", "black")

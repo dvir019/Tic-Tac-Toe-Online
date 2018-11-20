@@ -1,5 +1,5 @@
 import Tkinter as tk
-from PIL import Image
+# from PIL import Image
 
 from Graphics import Graphics
 
@@ -9,7 +9,6 @@ class Button(object):
         self.line = line  # type: int
         self.col = col  # type: int
         self.used = ''  # type: str
-        img = tk.PhotoImage(file=Graphics.paths['white'])
 
         self.btn = tk.Button(master=Graphics().frame)
         self.__initialize_button()
@@ -25,7 +24,7 @@ class Button(object):
 
     def click(self):
         self.__change_image('')  ##### change according to the real sign !!!!!!!! (not only the user's sign)
-        self.used=''
+        self.used = ''
         self.btn['command'] = 0  # Disable clicking
         self.btn['relief'] = 'sunken'  # Fix the design
         self.btn.bind("<Enter>", '')
@@ -33,3 +32,6 @@ class Button(object):
 
     def grid(self):
         self.btn.grid(row=self.line, column=self.col)
+
+    def __str__(self):
+        return "{},{}".format(self.line, self.col)
