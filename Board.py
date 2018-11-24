@@ -3,7 +3,7 @@ from Button import Button
 
 class Board(object):
     def __init__(self, size=3):
-        self.__board = [[Button(j, i) for i in xrange(size)] for j in xrange(size)]  # type: list[list[str]]
+        self.__board = [[Button(j, i) for i in xrange(size)] for j in xrange(size)]  # type: list[list[Button]]
         self.__size = size  # type: int
 
     def __getitem__(self, pos_tuple):
@@ -112,6 +112,18 @@ class Board(object):
             return sign
         return ''
 
+    def check_full(self):
+        """
+        Check if the board is full.
+        :return: True if the board is full, else False
+        :rtype: bool
+        """
+        for row in xrange(self.__size):
+            for col in xrange(self.__size):
+                if self[row, col].used=='':
+                    return False
+        return True
+
 
 import Tkinter as tk
 
@@ -159,6 +171,17 @@ def startgame(btn, path, stop=False):
 
 
 # flat, groove, raised, ridge, solid, or sunken
+def change():
+    a.grid(row=0, column=0)
+    i = 0
+    import time
+    while True:
+        a.config(text='\n\naaa'+'.'*i+' '*(3-i))
+        i+=1
+        if i==4:
+            i=0
+        time.sleep(0.5)
+
 
 if __name__ == '__main__':
     mw = tk.Tk()
@@ -200,11 +223,18 @@ if __name__ == '__main__':
     go.bind("<Enter>", lambda btn: startgame(btn, 'X.gif'))
     go.bind("<Leave>", lambda btn: startgame(btn, 'white.gif'))
     go.grid(row=1, column=0)
-    close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
+    close = tk.Button(master=back)  # , text='aa', compound="center")
+    ph2 = tk.PhotoImage(file="O.gif")
+    close.config(image=ph2)
+    go.image = ph
     close.grid(row=1, column=1)
     close = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
     close.grid(row=1, column=2)
-    go2 = tk.Button(master=back, text='Start Game', command=startgame, height=10, width=20)
+
+    import threading
+    th=threading.Thread(target=change)
+
+    go2 = tk.Button(master=back, text='Start Game', command=th.start, height=10, width=20)
     go2.grid(row=2, column=0)
     close2 = tk.Button(master=back, text='Quit', command=mw.destroy, height=10, width=20)
     close2.grid(row=2, column=1)
@@ -220,6 +250,57 @@ if __name__ == '__main__':
     print dir(close)
     info = tk.Label(master=back, text='Made by me!', bg='red', fg='black', width=30)
     info.grid(row=0, column=0, columnspan=3)
+
+    lst=["arrow",
+         "circle",
+         "clock",
+         "cross",
+         "dotbox",
+         "exchange",
+         "fleur",
+         "heart",
+         "heart",
+         "man",
+         "mouse",
+         "pirate",
+         "plus",
+         "shuttle",
+         "sizing",
+         "spider",
+         "spraycan",
+         "star",
+         "target",
+         "tcross",
+         "trek",
+         "watch"]
+    i=21
+    # x=tk.Toplevel(master=mw, height=1000, width=1000, background='red', cursor=lst[i])
+    # print lst[i]
+    # x.title('')
+    # # x.attributes('-topmost', True)
+    # x.geometry("{}x{}+{}+{}".format(300, 100, int((screen_width / 2) - (300 / 2)),
+    #                                 int((screen_height / 2) - (100 / 2))))
+    # # x.attributes('-disabled', True)
+    # x.transient(mw)
+    p=tk.PhotoImage(file='C:\Users\Horim\Desktop\win.gif')
+    a=tk.Label(master=mw, text='\n\naa', compound="center", relief="solid", borderwidth=.556)
+    a.config(image=p)
+    # a.grid(row=0, column=0)
+    # back.config(state=tk.DISABLED)
+    for w in back.winfo_children():
+        if w['text']!='Start Game':
+            w.config(state=tk.DISABLED)
+    # x.destroy()
+    # x.overrideredirect(1)
+    # import tkSimpleDialog
+    # aa=tkSimpleDialog.Dialog(mw)
+    # mw.overrideredirect(1)
+    #
+    #
+    # def movewindow(event):
+    #     mw.geometry('+{0}+{1}'.format(event.x_root, event.y_root))
+    # mw.bind('', movewindow)
+    # z=tk.Label(master=mw, text='aaa', height=10, width=10, background='cyan').grid(row=0, column=0)
 
     mw.mainloop()
 
