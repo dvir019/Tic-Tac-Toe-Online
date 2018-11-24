@@ -2,31 +2,85 @@ import Tkinter as tk
 
 
 class Graphics(object):
-    __instance = None
     paths = {'X': 'X.gif',
              'O': 'O.gif',
              'white': 'white.gif'}  # type: dict[str:str]
+    __master_window = None
+    __menu_frame = None
+    __board__frame = None
 
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super(Graphics, cls).__new__(cls)
-        return cls.__instance
+    @classmethod
+    def initialize(cls):
+        cls.__master_window = tk.Tk()
+        # cls.__master_window.withdraw()
+        # cls.__master_window = tk.Tk()
+        cls.__master_window.title('Tic Tac Toe')
+        cls.__master_window.geometry("500x500")  # Window size
+        cls.__master_window.resizable(0, 0)  # Don't allow resizing in the x or y direction
 
-    def __init__(self):
-        self.__master_window = tk.Tk()
-        self.__master_window.title('Tic Tac Toe')
-        self.__master_window.geometry("500x500")  # Window size
-        self.__master_window.resizable(0, 0)  # Don't allow resizing in the x or y direction
-        self.__frame = tk.Frame(master=self.__master_window)
-        self.__frame.pack(fill=tk.BOTH, expand=1)
+        cls.__menu_frame = tk.Frame(master=cls.__master_window, background='red')
+        # cls.__menu_frame.pack(fill=tk.BOTH, expand=1)
+        cls.__menu_frame.grid(row=0, column=0)
 
-    @property
-    def frame(self):
-        return self.__frame
+        cls.__menu_frame.pack(fill=tk.BOTH, expand=1)
+        cls.__board__frame = tk.Frame(master=cls.__master_window, background='green')
 
-    def run(self):
-        self.__master_window.mainloop()
+    @classmethod
+    def __set_menu(cls):
+        btn = tk.Button(master=cls.__menu_frame, text='next', command=cls.__show_next)
+        btn.grid(row=0, column=0)
 
+    @classmethod
+    def __show_next(cls):
+        print 'show'
+        # cls.__board__frame.pack(fill=tk.BOTH, expand=1)
+        cls.__board__frame.grid(row=0, column=0)
+        cls.__board__frame.pack(fill=tk.BOTH, expand=1)
+        cls.__menu_frame.grid_remove()
+        cls.__menu_frame.pack_forget()
+        tk.Button(master=cls.__board__frame, width=3).grid(row=0, column=0)
+        # cls.__board__frame.grid(row=0, column=0, sticky=tk.NSEW)
+        cls.__board__frame.tkraise()
+
+    @classmethod
+    def get_board_frame(cls):
+        return cls.__board__frame
+
+    @classmethod
+    def run(cls):
+        cls.initialize()
+        cls.__set_menu()
+        # cls.__menu_frame.tkraise()
+        cls.__master_window.mainloop()
+
+
+if __name__ == '__main__':
+    Graphics.run()
+
+    # __instance = None
+    # paths = {'X': 'X.gif',
+    #          'O': 'O.gif',
+    #          'white': 'white.gif'}  # type: dict[str:str]
+    #
+    # def __new__(cls, *args, **kwargs):
+    #     if cls.__instance is None:
+    #         cls.__instance = super(Graphics, cls).__new__(cls)
+    #     return cls.__instance
+    #
+    # def __init__(self):
+    #     self.__master_window = tk.Tk()
+    #     self.__master_window.title('Tic Tac Toe')
+    #     self.__master_window.geometry("500x500")  # Window size
+    #     self.__master_window.resizable(0, 0)  # Don't allow resizing in the x or y direction
+    #     self.__frame = tk.Frame(master=self.__master_window)
+    #     self.__frame.pack(fill=tk.BOTH, expand=1)
+    #
+    # @property
+    # def frame(self):
+    #     return self.__frame
+    #
+    # def run(self):
+    #     self.__master_window.mainloop()
 
 # If you have a large number of widgets, like it looks like you will for your
 # game you can specify the attributes for all widgets simply like this.

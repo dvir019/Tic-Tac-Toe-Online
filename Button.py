@@ -10,7 +10,7 @@ class Button(object):
         self.col = col  # type: int
         self.used = ''  # type: str
 
-        self.btn = tk.Button(master=Graphics().frame)
+        self.btn = tk.Button(master=Graphics.get_board_frame())
         self.__initialize_button()
 
     def __initialize_button(self):
