@@ -39,7 +39,7 @@ class Graphics(object):
         cls.__board__frame.pack(fill=tk.BOTH, expand=1)
         cls.__menu_frame.grid_remove()
         cls.__menu_frame.pack_forget()
-        b=Board()
+        b=Board(cls.__board__frame)
         b.display()
         # info = tk.Label(master=Graphics.get_board_frame(), text='Made by me!', bg='red', fg='black', width=30)
         # info.grid(row=3, column=0, columnspan=3)

@@ -2,8 +2,8 @@ from Button import Button
 
 
 class Board(object):
-    def __init__(self, size=3):
-        self.__board = [[Button(j, i) for i in xrange(size)] for j in xrange(size)]  # type: list[list[Button]]
+    def __init__(self, master, size=3):
+        self.__board = [[Button(master, j, i) for i in xrange(size)] for j in xrange(size)]  # type: list[list[Button]]
         self.__size = size  # type: int
 
     def __getitem__(self, pos_tuple):

@@ -2,27 +2,30 @@ import Tkinter as tk
 # from PIL import Image
 
 # from Graphics import Graphics
+import paths
 
 
 class Button(object):
-    def __init__(self, line, col):
+    def __init__(self, master, line, col):
         self.line = line  # type: int
         self.col = col  # type: int
         self.used = ''  # type: str
+        self.master=master
 
-        self.btn = tk.Button(master=Graphics.get_board_frame(), text='aaa', compound="center", command=self.click)
+        self.btn = tk.Button(master=master, text='aafffffffffa', compound="center", command=self.click)
         self.__initialize_button()
         print self
 
     def __initialize_button(self):
         self.__change_image('white')
-        self.btn.bind("<Enter>", lambda event: self.__change_image('white'))  # change '' to real sign
+        self.btn.bind("<Enter>", lambda event: self.__change_image('X'))  # change '' to real sign
         self.btn.bind("<Leave>", lambda event: self.__change_image('white'))
 
     def __change_image(self, sign):
-        img = tk.PhotoImage(file=Graphics.paths[sign])
-        print '{}, {}'.format(sign, Graphics.paths[sign])
+        img = tk.PhotoImage(file=paths.images[sign])
+        print '{}, {}'.format(sign, paths.images[sign])
         self.btn.config(image=img)
+        self.btn.image=img
 
     def click(self):
         print 'click!!'
@@ -34,7 +37,7 @@ class Button(object):
         self.btn.bind("<Leave>", '')
 
     def grid(self):
-        self.btn.grid(row=self.line, column=self.col, in_=Graphics.get_board_frame())
+        self.btn.grid(row=self.line, column=self.col)
         print 'grid: {}'.format(self)
 
     def __str__(self):
