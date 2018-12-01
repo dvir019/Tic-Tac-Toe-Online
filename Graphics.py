@@ -1,4 +1,5 @@
 import Tkinter as tk
+from Board import *
 
 
 class Graphics(object):
@@ -38,8 +39,12 @@ class Graphics(object):
         cls.__board__frame.pack(fill=tk.BOTH, expand=1)
         cls.__menu_frame.grid_remove()
         cls.__menu_frame.pack_forget()
-        tk.Button(master=cls.__board__frame, width=3).grid(row=0, column=0)
-        # cls.__board__frame.grid(row=0, column=0, sticky=tk.NSEW)
+        b=Board()
+        b.display()
+        # info = tk.Label(master=Graphics.get_board_frame(), text='Made by me!', bg='red', fg='black', width=30)
+        # info.grid(row=3, column=0, columnspan=3)
+        # tk.Button(master=cls.__board__frame, width=3).grid(row=0, column=0)
+        cls.__board__frame.grid(row=0, column=0)
         cls.__board__frame.tkraise()
 
     @classmethod

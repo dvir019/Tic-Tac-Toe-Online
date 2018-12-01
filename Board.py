@@ -124,6 +124,11 @@ class Board(object):
                     return False
         return True
 
+    def display(self):
+        for row in xrange(self.__size):
+            for col in xrange(self.__size):
+                self[row, col].grid()
+
 
 import Tkinter as tk
 
@@ -222,7 +227,7 @@ if __name__ == '__main__':
     # x=False
     go.bind("<Enter>", lambda btn: startgame(btn, 'X.gif'))
     go.bind("<Leave>", lambda btn: startgame(btn, 'white.gif'))
-    go.grid(row=1, column=0)
+    go.grid(row=1, column=0, in_=back)
     close = tk.Button(master=back)  # , text='aa', compound="center")
     ph2 = tk.PhotoImage(file="O.gif")
     close.config(image=ph2)
